@@ -15,7 +15,7 @@ while i<10:
     time.sleep(1)
     try:
         print ('trying to connect...%d'%i)
-        s.connect(('39.108.227.217',port))
+        s.connect(('192.168.88.106',port))
         print (s.recv(1024))
         for data in [b'CHIFE',b'NG',b'WU']:
             s.send(data)

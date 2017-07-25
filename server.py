@@ -17,29 +17,34 @@ s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 # Listen Port
 s.bind(('0.0.0.0',9999))
 s.listen(5)
-print ('Waiting for connection...')
 
 # Handle a connection
-def tcplink(sock,Saddr):
+def tcplink(sock,addr):
     print ("Accept new connect form %s:%s..."%addr)
-    sock.send(b"Welcome!!")
-    while True:
-        data=sock.recv(1024)
-        time.sleep(1)
-        if data=='exit' or not data:
+    while True: 
+        print ("%s:%s:"%addr)
+        send=input('please input your command:')
+        try:
+            sock.send(send.encode())
+        except Exception:
+            print ('send error!!client may closed!')
             break
-        sock.send(b"Hello,%s!"%data)
+        if send=='':
+            print ('---doesn\'t recevie empty data---')
+        else:
+            recv=sock.recv(1024)
+            if recv=='exit' or not recv: 
+                print ('%s:%s closed'%addr)
+                break
+            else:
+                print (recv)
     sock.close()
-    print ('Connection from %s:%s closed.'%addr)
-
-
 # LOOP
 while True:
+    print ('Waiting for connection...')
     # recvice a new connection
     sock,addr=s.accept()
 
     # creat a new thread to handle connection
-    t=threading.Thread(target=tcplink(sock,addr))
-  
+    t=threading.Thread(target=tcplink(sock,addr)) 
 
-os.system('pause')
