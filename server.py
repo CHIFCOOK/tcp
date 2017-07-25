@@ -15,7 +15,7 @@ import os
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 # Listen Port
-s.bind(('127.0.0.1',9999))
+s.bind(('0.0.0.0',9999))
 s.listen(5)
 print ('Waiting for connection...')
 
