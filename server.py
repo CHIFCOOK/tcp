@@ -46,7 +46,6 @@ def tcplink(sock,addr):
                 break
             else:
                 print (recv)
-    sock.close()
 # LOOP
 while True:
     print ('')
@@ -59,4 +58,4 @@ while True:
     print ('')
     # creat a new thread to handle connection
     t=threading.Thread(target=tcplink(sock,addr)) 
-
+    sock.close()
